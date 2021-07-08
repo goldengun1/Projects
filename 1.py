@@ -1,9 +1,11 @@
 import json
 
-niska =  "{\"APF3_AN1_43\":11502}"
-niska2 = "{'APF3_AN1_43': 11502}"
+niska1 = "APF3_AN1_43"
 
-data = json.loads(niska2)
-mapa = dict(data)
+x = niska1.split('_')
+print(x)
+novo = ""
+for i in range(len(x)-1):
+    novo += x[i]
 
-print(mapa)
+print(novo)

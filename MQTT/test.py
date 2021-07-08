@@ -2,24 +2,39 @@ import json
 import time
 import paho.mqtt.client as mqtt
 
+global_names = set()
+global_map = dict()
+
+
 def on_recieve(client,userdata,message):
     print("Message recieved:")
-    data = str(message.payload)
+    niska = str(message.payload)
 
-    new = data[1:].strip("\'")
+    new = niska[1:].strip("\'")
     data = json.loads(new)
-    print(new)
-    print(data)
-    print()
-    #print(data)
+
+    mapa = dict(data)
+    for k,v in mapa.items():
+        if k not in global_names:
+            global_names.add(k)
+        
+        global_map[k] = v
+
+
+            
+        
+       # print("{} : {}".format(k,v))
+
     #print(new)
-    #print(message.payload)
+    #print(data)
+    print()
 
 def on_connect(client, userdata, flags, rc):
-    if rc == 0:
-        print("connection success")
-    else:
+    if rc != 0:
         print("connection failed")
+
+def napravi_par(kljuc,vrednost):
+    pass
 
 def main():
 
@@ -29,12 +44,24 @@ def main():
     client1.on_connect = on_connect
     client1.connect(address,port = 1882)
 
-    #client1.loop_start()
     client1.subscribe("v1/devices/me/telemetry")
-    #time.sleep(5)
+    client1.loop_start()
+    #client1.loop_forever()
+    
+    while True:
+        x = int(input("unesi: "))
+        if x == 0:
+            break
+        if x==1:
+            print(global_names)
+            print()
+            for k,v in global_map.items():
+               print("{} : {}".format(k,v)) 
 
-    client1.loop_forever()
-    #client1.loop_end()
+    client1.loop_stop()
+    #if int(input("unesi:")) == 0:
+    #    client1.loop_stop()
+    
 
 
 
