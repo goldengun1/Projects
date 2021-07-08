@@ -34,6 +34,7 @@ def on_connect(client, userdata, flags, rc):
         print("connection failed")
 
 def napravi_par(kljuc,vrednost):
+    #TODO
     pass
 
 def main():
