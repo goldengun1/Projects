@@ -1,16 +1,9 @@
 import json
-import time
+import os
 import paho.mqtt.client as mqtt
 
-global_names = set()
 global_map = dict()
 
-#napraviti mapu,map(string,map) koja ce da bude globalna 
-#i koja ce da mapira ime u obliku string-a(broj stana,ulica...)
-#i u vrednost koja ce da bude mapa(string,float/int),i koja ce da sadrzi
-# vrednosti razlicitih parametara.
-# na primer stan 41 je kljuc globalne mape a vrednost je mapa koja ima kljuceve
-#  APF3_AN1,IF1_AN2,RH_ ....., i vrednost za te senzore
 
 def on_recieve(client,userdata,message):
     print("Message recieved:")
@@ -18,33 +11,42 @@ def on_recieve(client,userdata,message):
 
     new = niska[1:].strip("\'")
     data = json.loads(new)
-
     mapa = dict(data)
-    for k,v in mapa.items():
-        if k not in global_names:
-            global_names.add(k)
-        
-        global_map[k] = v
+    key = None
+    param = None
 
+    for topic,value in mapa.items():
+        (key,param) = make_pair(topic)
+        #print("{} {}".format(key,param))
 
-            
-        
-       # print("{} : {}".format(k,v))
+    del mapa
 
-    #print(new)
-    #print(data)
-    print()
+    #ubacujemo informacije u globalnu mapu ako postoji kljuc key
+    if key in global_map:
+        global_map[key][param] = value
+    else:
+    #pravimo mapu koju dodeljujemo kljucu key
+        tmp = dict()
+        tmp[param] = value
+        global_map[key] = tmp
 
 def on_connect(client, userdata, flags, rc):
     if rc != 0:
         print("connection failed")
 
-#funkcija koja ce za odredjeni topic koji salje broker
-#da vrati kljuc za globalnu promenljivu,
-# i pored toga paramentar i vrendost parametra za kljuc
-def napravi_par(kljuc,vrednost):
-    #TODO
-    pass
+
+def make_pair(topic):
+    key = topic[topic.rindex("_")+1:]
+    param = topic[:topic.rindex("_")]
+
+    return(key,param)
+
+def print_map(apts):
+    for key,map in global_map.items():
+        print("{} :".format(key))
+        for param,value in map.items():
+            print("\t{} : {}".format(param,value))
+        print()
 
 def main():
 
@@ -59,14 +61,12 @@ def main():
     #client1.loop_forever()
     
     while True:
-        x = int(input("unesi: "))
+        x = int(input())
         if x == 0:
             break
         if x==1:
-            print(global_names)
-            print()
-            for k,v in global_map.items():
-               print("{} : {}".format(k,v)) 
+            os.system("clear")
+            print_map(global_map)
 
     client1.loop_stop()
     #if int(input("unesi:")) == 0:
