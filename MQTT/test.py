@@ -5,6 +5,12 @@ import paho.mqtt.client as mqtt
 global_names = set()
 global_map = dict()
 
+#napraviti mapu,map(string,map) koja ce da bude globalna 
+#i koja ce da mapira ime u obliku string-a(broj stana,ulica...)
+#i u vrednost koja ce da bude mapa(string,float/int),i koja ce da sadrzi
+# vrednosti razlicitih parametara.
+# na primer stan 41 je kljuc globalne mape a vrednost je mapa koja ima kljuceve
+#  APF3_AN1,IF1_AN2,RH_ ....., i vrednost za te senzore
 
 def on_recieve(client,userdata,message):
     print("Message recieved:")
@@ -33,6 +39,9 @@ def on_connect(client, userdata, flags, rc):
     if rc != 0:
         print("connection failed")
 
+#funkcija koja ce za odredjeni topic koji salje broker
+#da vrati kljuc za globalnu promenljivu,
+# i pored toga paramentar i vrendost parametra za kljuc
 def napravi_par(kljuc,vrednost):
     #TODO
     pass
