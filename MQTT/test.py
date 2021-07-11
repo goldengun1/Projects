@@ -6,7 +6,7 @@ global_map = dict()
 
 
 def on_recieve(client,userdata,message):
-    print("Message recieved:")
+    #print("Message recieved:")
     niska = str(message.payload)
 
     new = niska[1:].strip("\'")
@@ -41,12 +41,29 @@ def make_pair(topic):
 
     return(key,param)
 
-def print_map(apts):
-    for key,map in global_map.items():
-        print("{} :".format(key))
-        for param,value in map.items():
-            print("\t{} : {}".format(param,value))
-        print()
+def print_map(name):
+    os.system("clear")
+    if name is None:
+        for key,map in global_map.items():
+            print("{} :".format(key))
+            for param,value in map.items():
+                print("\t{} : {}".format(param,value))
+            print()
+    else:
+        for key,map in global_map.items():
+            if key == name:
+                print("{} :".format(key))
+                for param,value in map.items():
+                    print("\t{} : {}".format(param,value))
+                print()
+
+
+def print_specific(name):
+    if name not in global_map:
+        print("NEMA PODATAKA!")
+        return
+    else:
+        print_map(name)
 
 def main():
 
@@ -60,13 +77,22 @@ def main():
     client1.loop_start()
     #client1.loop_forever()
     
+    #while True:
+    #    x = int(input())
+    #    if x == 0:
+    #        break
+    #    if x==1:
+    #        os.system("clear")
+    #        print_map()
+    
     while True:
-        x = int(input())
-        if x == 0:
+        name = str(input())
+        if name == "exit":
             break
-        if x==1:
-            os.system("clear")
-            print_map(global_map)
+        elif name == "all":
+            print_map(None)
+        else:
+            print_specific(name)
 
     client1.loop_stop()
     #if int(input("unesi:")) == 0:
