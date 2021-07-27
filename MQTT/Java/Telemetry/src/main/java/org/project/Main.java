@@ -6,6 +6,7 @@ import org.eclipse.paho.client.mqttv3.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Main {
@@ -94,8 +95,11 @@ public class Main {
                 if(name.equals("exit"))
                     break;
                 //the name is the name of the location we want telemetry for
-                if(name.equals("all")){
-                    print_map();
+                else{
+                    if(name.equals("all"))
+                        print_map(Optional.empty());
+                    else
+                        print_map(Optional.of(name));
                 }
 
 
@@ -113,9 +117,18 @@ public class Main {
 
     }
 
-    private static void print_map() {
-        for(Map.Entry<String ,Apartment> entry : global_map.entrySet()) {
-            System.out.println(entry.getValue());
+    private static void print_map(Optional<String> name) {
+        if(name.isPresent())
+        {
+            if(global_map.containsKey(name.get()))
+                System.out.println(global_map.get(name.get()));
+            else
+                System.out.println("NEMA PODATAKA!");
+        }
+        else {
+            for(Map.Entry<String ,Apartment> entry : global_map.entrySet()) {
+                System.out.println(entry.getValue());
+            }
         }
     }
 }
