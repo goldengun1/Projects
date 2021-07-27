@@ -6,7 +6,6 @@ import org.eclipse.paho.client.mqttv3.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Scanner;
 
 public class Main {
