@@ -97,9 +97,9 @@ public class Main {
                 //the name is the name of the location we want telemetry for
                 else{
                     if(name.equals("all"))
-                        print_map(Optional.empty());
+                        print_map(null);
                     else
-                        print_map(Optional.of(name));
+                        print_map(name);
                 }
 
 
@@ -117,11 +117,11 @@ public class Main {
 
     }
 
-    private static void print_map(@SuppressWarnings("OptionalUsedAsFieldOrParameterType") Optional<String> name) {
-        if(name.isPresent())
+    private static void print_map(String name) {
+        if(name != null)
         {
-            if(global_map.containsKey(name.get()))
-                System.out.println(global_map.get(name.get()));
+            if(global_map.containsKey(name))
+                System.out.println(global_map.get(name));
             else
                 System.out.println("NEMA PODATAKA!");
         }
