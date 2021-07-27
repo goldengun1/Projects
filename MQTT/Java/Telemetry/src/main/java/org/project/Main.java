@@ -1,5 +1,6 @@
 package org.project;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.eclipse.paho.client.mqttv3.*;
 
@@ -46,15 +47,19 @@ public class Main {
                 System.out.println(msg);
 
                 ObjectMapper parser = new ObjectMapper();
-                Map<String,Double> tmp = parser.readValue(msg,Map.class);
+                Map<String,Double> tmp = parser.readValue(msg, new TypeReference<Map<String, Double>>() { });
 
                 //temp values
-                //TODO
+                String name = "";
+                Double value ;
 
                 for(Map.Entry<String,Double> e : tmp.entrySet()){
                     System.out.println(e.getKey()+" : "+e.getValue());
-                    //System.out.println(e.getKey().getClass());
-                    //System.out.println(e.getValue());
+
+                    name = e.getKey();
+                    value = e.getValue();
+                    System.out.println(value/100);
+
                 }
 
                 //TODO
