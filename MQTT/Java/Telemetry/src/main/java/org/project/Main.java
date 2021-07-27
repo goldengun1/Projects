@@ -117,7 +117,7 @@ public class Main {
 
     }
 
-    private static void print_map(Optional<String> name) {
+    private static void print_map(@SuppressWarnings("OptionalUsedAsFieldOrParameterType") Optional<String> name) {
         if(name.isPresent())
         {
             if(global_map.containsKey(name.get()))
