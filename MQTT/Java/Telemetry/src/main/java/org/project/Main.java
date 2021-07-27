@@ -79,7 +79,6 @@ public class Main {
                 else {
                     global_map.get(apt_No).update_stat(sensor_name,value);
                 }
-                System.out.println(global_map);
             }
 
             @Override
@@ -95,6 +94,9 @@ public class Main {
                 if(name.equals("exit"))
                     break;
                 //the name is the name of the location we want telemetry for
+                if(name.equals("all")){
+                    print_map();
+                }
 
 
             }
@@ -109,5 +111,11 @@ public class Main {
         //disconnecting
         client1.disconnect();
 
+    }
+
+    private static void print_map() {
+        for(Map.Entry<String ,Apartment> entry : global_map.entrySet()) {
+            System.out.println(entry.getValue());
+        }
     }
 }
