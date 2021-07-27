@@ -32,9 +32,9 @@ public class Apartment {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(this.apt_No + " :\n");
+        sb.append(this.apt_No).append(" :\n");
         for(Map.Entry<String,Double> e : this.getTelemetry_stats().entrySet()) {
-            sb.append("\t" + e.getKey() + " : " + e.getValue() + "\n");
+            sb.append("\t").append(e.getKey()).append(" : ").append(e.getValue()).append("\n");
         }
 
         return sb.toString();
