@@ -5,7 +5,7 @@ i da predstavlja osnovnu logiku programa koja ce biti implementirana u Javi kao 
 kao i mobilna aplikacija za Android operativni sistem(pisana u Javi/Kotlinu).
 Sve tri implementacije za povezivanje i komunikaciju preko MQTT protokola koriste PahoMQTT biblioteke.
 
-# Pytnon
+# Python
 Za pokretanje Python programa potrebno je da pored Python3 bude i biblioteka PahoMQTT
 Nema graficko okruzenje
 
