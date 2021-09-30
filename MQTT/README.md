@@ -7,7 +7,7 @@ Sve tri implementacije za povezivanje i komunikaciju preko MQTT protokola korist
 
 # Python
 Za pokretanje Python programa potrebno je da pored Python3 bude i biblioteka PahoMQTT
-Nema graficko okruzenje
+Imace graficko okruzenje (koristi PyQt5 framework)
 
 # Java 
 Java aplikacija se pokrece preko izvrsnog fajla (Win/Linux) i ima graficko okruzenje
