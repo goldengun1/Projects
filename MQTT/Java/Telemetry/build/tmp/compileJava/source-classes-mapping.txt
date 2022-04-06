@@ -1,6 +1,0 @@
-org/project/Main.java
- org.project.Main
- org.project.Main$1
- org.project.Main$1$1
-org/project/Apartment.java
- org.project.Apartment

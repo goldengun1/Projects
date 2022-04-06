@@ -13,14 +13,15 @@ public class Main {
 
     public static Map<String , Apartment> global_map = new HashMap<>();
 
+
     public static void main(String[] args) throws MqttException {
 
         //INITIALIZATION
-        String address = "207.180.244.242";
-        String port = "1882";
-        String protocol = "tcp://";
+        final String address = "207.180.244.242";
+        final String port = "1882";
+        final String protocol = "tcp://";
+        final String topic = "v1/devices/me/telemetry";
         String broker = protocol + address + ":" + port;
-        String topic = "v1/devices/me/telemetry";
         String clientID = "test_client";
         MqttClient client1 = new MqttClient(broker,clientID);
 
@@ -43,7 +44,7 @@ public class Main {
             @Override
             public void messageArrived(String topic, MqttMessage message) throws Exception {
                 String msg = new String(message.getPayload());
-                System.out.println(msg);
+                //System.out.println(msg);
 
                 ObjectMapper parser = new ObjectMapper();
                 Map<String,Double> tmp = parser.readValue(msg, new TypeReference<Map<String, Double>>() { });
@@ -63,12 +64,14 @@ public class Main {
                 int x = name.lastIndexOf('_');
                 String apt_No = name.substring(x+1);
                 String sensor_name = name.substring(0,x);
-                System.out.println(apt_No + " : " + sensor_name+" : "+value);
+                //System.out.println(apt_No + " : " + sensor_name+" : "+value);
 
                 //TODO
                 //fixing some of the values to be in the right range
+                //voltages should be devided by 1000(sensor name starts with VF....)
+                //Appartment temps should be devided by 10(sensor name is "temp")
                 //ex. temp=256 -> temp = 25.6
-                //ex. kal=8054900.0 -> kal =8054.9
+                //ex. VF1_AN2= 239300.0 -> VF1_AN2= 239.300
 
 
                 if(!global_map.containsKey(apt_No)){
